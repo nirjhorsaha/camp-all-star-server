@@ -24,6 +24,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const usersCollection = client.db("campUserDB").collection("campUsers");
+    const classCollection = client.db("campUserDB").collection("classes");
 
     // Save user email and role in DB
     app.put("/users/:email", async (req, res) => {
@@ -39,7 +40,14 @@ async function run() {
       res.send(result);
     });
 
-    
+    // Save uploaded class in database
+    app.post("/class", async (req, res) => {
+      const classes = req.body;
+      console.log(classes);
+      const result = await classCollection.insertOne(classes);
+      res.send(result);
+    });
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection

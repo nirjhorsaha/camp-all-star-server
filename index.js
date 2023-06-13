@@ -48,6 +48,12 @@ async function run() {
       res.send(result);
     });
 
+    // Get all classe
+    app.get("/classes", async (req, res) => {
+      const result = await classCollection.find().toArray();
+      res.send(result);
+    });
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection

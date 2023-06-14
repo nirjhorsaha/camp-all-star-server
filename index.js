@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 
 // middleware
@@ -46,10 +46,19 @@ async function run() {
       res.send(result);
     });
 
+    // Get user
+    app.get("/users/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await usersCollection.findOne(query);
+      console.log(result);
+      res.send(result);
+    });
+
     // Save uploaded class in database
     app.post("/class", async (req, res) => {
       const classes = req.body;
-      console.log(classes);
+      // console.log(classes);
       const result = await classCollection.insertOne(classes);
       res.send(result);
     });
@@ -60,12 +69,21 @@ async function run() {
       res.send(result);
     });
 
+    // Get single user class info
+    app.get("/classes/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await classCollection.findOne(query);
+      console.log(result);
+      res.send(result);
+    });
+
     // Get a user info
-    app.get("/user/:email", async (req, res) => {
+    app.get("/class/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email: email };
       const result = await usersCollection.findOne(query);
-      console.log(result);
+      // console.log(result);
       res.send(result);
     });
 

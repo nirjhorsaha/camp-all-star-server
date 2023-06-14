@@ -60,7 +60,14 @@ async function run() {
       res.send(result);
     });
 
-    
+    // Get a user info
+    app.get("/user/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await usersCollection.findOne(query);
+      console.log(result);
+      res.send(result);
+    });
 
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();

@@ -40,6 +40,12 @@ async function run() {
       res.send(result);
     });
 
+    // get all users
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
+
     // Save uploaded class in database
     app.post("/class", async (req, res) => {
       const classes = req.body;
@@ -53,6 +59,8 @@ async function run() {
       const result = await classCollection.find().toArray();
       res.send(result);
     });
+
+    
 
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();

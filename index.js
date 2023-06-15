@@ -23,6 +23,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    
     const usersCollection = client.db("campUserDB").collection("campUsers");
     const classCollection = client.db("campUserDB").collection("classes");
 
@@ -50,7 +51,7 @@ async function run() {
         $set: user,
       };
       const result = await classCollection.updateOne(query, updateDoc, options);
-      console.log(result);
+      // console.log(result);
       res.send(result);
     });
 

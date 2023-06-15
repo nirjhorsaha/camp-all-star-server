@@ -23,7 +23,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    
+    // db collection
     const usersCollection = client.db("campUserDB").collection("campUsers");
     const classCollection = client.db("campUserDB").collection("classes");
 
@@ -41,7 +41,7 @@ async function run() {
       res.send(result);
     });
 
-    // upate class status
+    // update class status
     app.put("/classes/:id", async (req, res) => {
       const id = req.params.id;
       const user = req.body;
@@ -61,7 +61,7 @@ async function run() {
       res.send(result);
     });
 
-    // Get user
+    // Get single user
     app.get("/users/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email: email };
@@ -78,13 +78,13 @@ async function run() {
       res.send(result);
     });
 
-    // Get all classe
+    // Get all classes
     app.get("/classes", async (req, res) => {
       const result = await classCollection.find().toArray();
       res.send(result);
     });
 
-    // Get single user class info
+    // Get single instructor class information
     app.get("/classes/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };

@@ -26,6 +26,7 @@ async function run() {
     // db collection
     const usersCollection = client.db("campUserDB").collection("campUsers");
     const classCollection = client.db("campUserDB").collection("classes");
+    const courseCollection = client.db("campUserDB").collection("studentsCourse");
 
     // Save user email and role in DB
     app.put("/users/:email", async (req, res) => {
@@ -75,6 +76,14 @@ async function run() {
       const classes = req.body;
       // console.log(classes);
       const result = await classCollection.insertOne(classes);
+      res.send(result);
+    });
+
+    // Save a single user selected class 
+    app.post("/selectedClass", async (req, res) => {
+      const selectedClasses = req.body;
+      // console.log(classes);
+      const result = await courseCollection.insertOne(selectedClasses);
       res.send(result);
     });
 

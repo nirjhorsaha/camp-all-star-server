@@ -86,6 +86,12 @@ async function run() {
       const result = await courseCollection.insertOne(selectedClasses);
       res.send(result);
     });
+    
+    // get a single user selected class 
+    app.get("/selectedClass", async (req, res) => {
+      const result = await courseCollection.find().toArray();
+      res.send(result);
+    });
 
     // Get all classes
     app.get("/classes", async (req, res) => {
